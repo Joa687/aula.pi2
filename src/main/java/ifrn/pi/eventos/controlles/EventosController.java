@@ -17,8 +17,8 @@ public class EventosController {
 		
 		
 	}
-	@PostMapping("/eventos/salvar")
-	public String salvar(Evento  evento) {
+	@PostMapping("/eventos/submit")
+	public String submit(Evento  evento) {
 		System.out.println("Evento salvo com os seguintes dados:");
 		System.out.println("Nome: " + evento.getNome());
 		System.out.println("Local: " + evento.getLocal());
