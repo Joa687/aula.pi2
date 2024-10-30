@@ -1,25 +1,30 @@
 package ifrn.pi.eventos.controlles;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import ifrn.pi.eventos.models.Evento;
 import ifrn.pi.eventos.repositories.eventoRepositorie;
 
 @Controller
+@RequestMapping("/eventos")
 public class EventosController {
 	
 	@Autowired
 	private eventoRepositorie er;
 	
-	@RequestMapping("/eventos/form")
+	@GetMapping("/form")
 	public String form() {
 		return "eventos/formEvento";
 		
 		
 	}
-	@RequestMapping("/eventos/submit")
+	@RequestMapping
 	public String submit(Evento  evento) {
 		System.out.println("Evento salvo com os seguintes dados:");
 		System.out.println(evento.getNome());
@@ -29,7 +34,14 @@ public class EventosController {
 		er.save(evento);
 		return "eventos/executandosubmit";
 	}
-	
+	@GetMapping
+	public ModelAndView lister() {
+		
+		List<Evento> eventos = er.findAll();
+		ModelAndView mv = new ModelAndView("eventos/lista");
+		mv.addObject("eventos", eventos);
+		return mv;
+	}
 	
 	
 
